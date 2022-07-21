@@ -1,9 +1,9 @@
-use std::ops::Range;
 use rand::Rng;
 use regex::Regex;
+use std::ops::Range;
 
 pub fn roll(command: &str) -> Result<u32, String> {
-    let dice_roll_regex = Regex::new(r"(?P<number>\d+)d(?P<sides>\d+)").unwrap();
+    let dice_roll_regex = Regex::new(r"(?P<number>\d+)(?:d(?P<sides>\d+))?").unwrap();
 
     let cap = match dice_roll_regex.captures(command) {
         Some(c) => c,
@@ -15,7 +15,9 @@ pub fn roll(command: &str) -> Result<u32, String> {
         }
     };
 
-    let number_of_dice = cap.name("number").map_or(1, |m| m.as_str().parse().unwrap());
+    let number_of_dice = cap
+        .name("number")
+        .map_or(1, |m| m.as_str().parse().unwrap());
     let dice_sides = cap.name("sides").map_or(6, |m| m.as_str().parse().unwrap());
 
     let mut sum = 0;
@@ -30,7 +32,10 @@ pub fn roll(command: &str) -> Result<u32, String> {
 /// Roll a dice with a given number of sides.
 fn roll_dice(sides: u32) -> u32 {
     let mut rng = rand::thread_rng();
-    rng.gen_range(Range{ start: 1, end: sides })
+    rng.gen_range(Range {
+        start: 1,
+        end: sides,
+    })
 }
 
 #[cfg(test)]

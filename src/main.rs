@@ -1,4 +1,4 @@
-use roll::{roll};
+use roll::roll;
 use std::env::args;
 
 fn main() {

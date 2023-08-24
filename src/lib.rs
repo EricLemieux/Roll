@@ -55,7 +55,7 @@ fn roll_dice(sides: u32) -> u32 {
     let mut rng = rand::thread_rng();
     rng.gen_range(Range {
         start: 1,
-        end: sides+1,
+        end: sides + 1,
     })
 }
 

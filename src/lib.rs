@@ -61,7 +61,6 @@ fn roll_dice(sides: u32) -> u32 {
 
 #[cfg(test)]
 mod tests {
-    use core::panicking::assert_failed;
     use crate::*;
 
     #[test]

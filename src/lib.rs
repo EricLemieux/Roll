@@ -13,10 +13,15 @@ pub fn roll(command: &str) -> Result<u32, String> {
     };
 
     let mut sum = 0;
+    let mut rolls: Vec<u32> = vec![];
 
     for _ in 0..res.number {
-        sum += roll_dice(res.sides)
+        let roll = roll_dice(res.sides);
+        rolls.push(roll);
+        sum += roll
     }
+    let rolls_str: Vec<String> = rolls.iter().map(|r| r.to_string()).collect();
+    eprintln!("({})", rolls_str.join(" + "));
 
     Ok(sum)
 }
